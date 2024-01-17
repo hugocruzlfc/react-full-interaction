@@ -1,4 +1,9 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useDebugValue,
+  useState,
+} from "react";
 import { Auth, AuthContextValues } from "../types";
 
 const AuthContext = createContext<AuthContextValues | null>(null);
@@ -22,5 +27,8 @@ export const useAuth = () => {
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
+  useDebugValue(context.auth, (auth) =>
+    auth?.user ? "Logged In" : "Logged Out"
+  );
   return context;
 };
